@@ -58,7 +58,8 @@ export class Midjourney extends MidjourneyMessage {
     prompt = prompt.trim();
     if (!this.config.Ws) {
       const seed = random(1000000000, 9999999999);
-      prompt = `[${seed}] ${prompt}`;
+      //Removed [${seed}] as midjourney seems to block accounts that use prompts with [].
+      prompt = `${prompt}`;
     } else {
       await this.getWsClient();
     }
