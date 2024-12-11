@@ -5,7 +5,7 @@ export class VerifyHuman {
 
   constructor(public config: MJConfig) {
     const { HuggingFaceToken } = config;
-    if (HuggingFaceToken === "" || HuggingFaceToken) {
+    if (HuggingFaceToken === "" || !HuggingFaceToken) {
       throw new Error("HuggingFaceToken is required");
     }
     this.inference = new HfInference(HuggingFaceToken);
