@@ -44,13 +44,11 @@ class MidjourneyMessage {
         this.config.Debug && console.log(...args, new Date().toISOString());
     }
     async FilterMessages(timestamp, prompt, loading) {
-        const seed = prompt.match(/\[(.*?)\]/)?.[1];
-        this.log(`seed:`, seed);
         const data = await this.safeRetrieveMessages(this.config.Limit);
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
             if (item.author.id === this.config.BotId &&
-                item.content.includes(`${seed}`)) {
+                item.content.includes(`${prompt}`)) {
                 const itemTimestamp = new Date(item.timestamp).getTime();
                 if (itemTimestamp < timestamp) {
                     this.log("old message");
