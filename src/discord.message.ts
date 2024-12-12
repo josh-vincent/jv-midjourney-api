@@ -60,12 +60,15 @@ export class MidjourneyMessage {
     prompt: string,
     loading?: LoadingHandler
   ) {
+    const seed = prompt.match(/--seed\s+(\d+)/);
+    this.log(`seed:`, seed);
+
     const data = await this.safeRetrieveMessages(this.config.Limit);
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
       if (
         item.author.id === this.config.BotId &&
-        item.content.includes(`${prompt}`)
+        item.content.includes(`${seed}`)
       ) {
         const itemTimestamp = new Date(item.timestamp).getTime();
         if (itemTimestamp < timestamp) {
