@@ -115,6 +115,7 @@ class WsMessage {
     }
     async messageCreate(message) {
         const { embeds, id, nonce, components, attachments } = message;
+        console.log("MessageCreate: ", JSON.stringify(message));
         if (nonce) {
             // this.log("waiting start image or info or error");
             this.updateMjEventIdByNonce(id, nonce);
@@ -122,7 +123,7 @@ class WsMessage {
                 const { color, description, title } = embeds[0];
                 this.log("embeds[0].color", color);
                 switch (color) {
-                    case 16711680: //error
+                    case color > 16711600: //error
                         if (title == "Action needed to continue") {
                             return this.continue(message);
                         }
